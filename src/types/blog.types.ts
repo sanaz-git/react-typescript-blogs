@@ -4,6 +4,11 @@ export interface IBlog {
   text: string;
   author: string;
 }
-export interface IPropsBlog {
+export interface IPropsBlogs {
   blogs: IBlog[];
+  blog: IBlog;
+  key: number;
 }
+
+export type IPropsBlog = Omit<IPropsBlogs, "blogs">;
+export type PropsBlogs = Omit<IPropsBlogs, "blog" | "key">;

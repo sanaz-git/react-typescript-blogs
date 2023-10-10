@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import { FC } from "react";
-import { IPropsBlog } from "../types/blog.types";
+import { PropsBlogs } from "../types/blog.types";
 
-const BlogTableComponents: FC<IPropsBlog> = ({ blogs }) => {
+const BlogTableComponents: FC<PropsBlogs> = ({ blogs }) => {
   return (
     <div className="flex flex-col mt-5 p-5">
       <div className="overflow-x-auto">
