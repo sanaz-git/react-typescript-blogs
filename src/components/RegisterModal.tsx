@@ -1,9 +1,25 @@
-import React, { Dispatch, FC, SetStateAction } from "react";
+import React, { Dispatch, FC, SetStateAction, useState } from "react";
 interface IProps {
   setShowRegisterModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const RegisterModalComponent: FC<IProps> = ({ setShowRegisterModal }) => {
+  const [fullName, setFullName] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const resetForm = (): void => {
+    setFullName("");
+    setUsername("");
+    setPassword("");
+  };
+
+  const registerHandler = () => {
+    console.log(fullName, username, password);
+    resetForm();
+    setShowRegisterModal(false);
+  };
+
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto">
       <div
@@ -27,8 +43,8 @@ const RegisterModalComponent: FC<IProps> = ({ setShowRegisterModal }) => {
                             type="text"
                             name="fullname"
                             placeholder="full name"
-                            // onChange={(e) => setUsername(e.target.value)}
-                            // value={username}
+                            onChange={(e) => setFullName(e.target.value)}
+                            value={fullName}
                             className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                           />
                         </div>
@@ -39,8 +55,8 @@ const RegisterModalComponent: FC<IProps> = ({ setShowRegisterModal }) => {
                             type="text"
                             name="username"
                             placeholder="username"
-                            // onChange={(e) => setPassword(e.target.value)}
-                            // value={password}
+                            onChange={(e) => setUsername(e.target.value)}
+                            value={username}
                             className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                           />
                         </div>
@@ -51,8 +67,8 @@ const RegisterModalComponent: FC<IProps> = ({ setShowRegisterModal }) => {
                             type="password"
                             name="password"
                             placeholder="password"
-                            // onChange={(e) => setPassword(e.target.value)}
-                            // value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
                             className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                           />
                         </div>
@@ -61,7 +77,7 @@ const RegisterModalComponent: FC<IProps> = ({ setShowRegisterModal }) => {
                     <div className="items-center gap-2 mt-3 sm:flex">
                       <button
                         className="w-full mt-2 p-2.5 flex-1 text-white bg-green-600 rounded-md outline-none ring-offset-2 ring-red-600 focus:ring-2"
-                        // onClick={LoginHandler}
+                        onClick={() => registerHandler()}
                       >
                         Register
                       </button>
