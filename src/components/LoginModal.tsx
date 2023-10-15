@@ -8,6 +8,8 @@ interface IProps {
 const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const { postAPIData, status, statusText, error, data }: TApiResponse =
+    UseApiPost();
 
   const resetForm = (): void => {
     setUsername("");
@@ -16,15 +18,13 @@ const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
 
   const loginHandler = async () => {
     console.log(username, password);
-    const response: TApiResponse = UseApiPost(
-      "http://localhost:3700/auth/login",
-      {
-        username,
-        password,
-      }
-    );
-    console.log(response);
-    resetForm();
+    postAPIData("/auth/login", { username, password });
+    if (status && status !== 200) {
+      alert(data.message);
+    } else {
+      resetForm();
+    }
+
     setShowLoginModal(false);
   };
 
