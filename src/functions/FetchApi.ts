@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { TApiResponse } from "../types/public.types";
+import { TPostApiResponse } from "../types/public.types";
+import axios, { AxiosError, AxiosRequestConfig } from "axios";
 
 const BackEndURL = "http://localhost:3700";
 
-export const UseApiPost = (): TApiResponse => {
+export const UseApiPost = (): TPostApiResponse => {
   const [status, setStatus] = useState<number>(0);
   const [statusText, setStatusText] = useState<string>("");
   const [data, setData] = useState<any>();
@@ -14,31 +15,23 @@ export const UseApiPost = (): TApiResponse => {
   const postAPIData = async (
     path: string,
     body: object = {},
-    options: RequestInit = {}
+    options: AxiosRequestConfig = {}
   ): Promise<void> => {
     setLoading(true);
     try {
-      const fetchOptions: RequestInit = !options
-        ? {
-            method: "POST",
-            headers: { content_type: "application/json" },
-            body: JSON.stringify(body),
-          }
-        : {
-            ...options,
-            method: "POST",
-            headers: { content_type: "application/json" },
-            body: JSON.stringify(body),
-          };
-      await fetch(`${BackEndURL}${path}`, fetchOptions)
-        .then(async (res) => {
-          setStatus(res.status);
-          setStatusText(res.statusText);
-          setData(await res.json);
-        })
-        .catch((err) => setError(err));
-    } catch (error) {
-      setError(error);
+      const axiosResponse = await axios.post(
+        `${BackEndURL}${path}`,
+        body,
+        options
+      );
+
+      setStatus(axiosResponse.status || data.status);
+      setStatusText(axiosResponse.statusText);
+      setData(await axiosResponse.data);
+    } catch (error: AxiosError | any) {
+      // console.log(error.response);
+      setError(error?.response?.data.status || 500);
+      setError(error?.response?.data);
     }
     setLoading(false);
   };
