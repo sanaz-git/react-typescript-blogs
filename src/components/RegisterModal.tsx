@@ -1,21 +1,28 @@
 import React, { Dispatch, FC, SetStateAction, useState } from "react";
+import { UseApiPost } from "../functions/FetchApi";
 interface IProps {
   setShowRegisterModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const RegisterModalComponent: FC<IProps> = ({ setShowRegisterModal }) => {
-  const [fullName, setFullName] = useState<string>("");
+  const [fullname, setFullname] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
+  const { postAPIData, status, error, data } = UseApiPost();
   const resetForm = (): void => {
-    setFullName("");
+    setFullname("");
     setUsername("");
     setPassword("");
   };
 
   const registerHandler = () => {
-    console.log(fullName, username, password);
+    console.log(fullname, username, password);
+    postAPIData("/auth/register", { username, password, fullname });
+
+    console.log(status);
+    console.log(data);
+    console.log(error);
+
     resetForm();
     setShowRegisterModal(false);
   };
@@ -43,8 +50,8 @@ const RegisterModalComponent: FC<IProps> = ({ setShowRegisterModal }) => {
                             type="text"
                             name="fullname"
                             placeholder="full name"
-                            onChange={(e) => setFullName(e.target.value)}
-                            value={fullName}
+                            onChange={(e) => setFullname(e.target.value)}
+                            value={fullname}
                             className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                           />
                         </div>
