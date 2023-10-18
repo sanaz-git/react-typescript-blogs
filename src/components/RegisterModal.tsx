@@ -1,5 +1,11 @@
-import React, { Dispatch, FC, SetStateAction, useState } from "react";
-import { UseApiPost } from "../functions/FetchApi";
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useState,
+  useEffect,
+} from "react";
+import { useApiPost } from "../functions/FetchApi";
 interface IProps {
   setShowRegisterModal: Dispatch<SetStateAction<boolean>>;
 }
@@ -8,7 +14,7 @@ const RegisterModalComponent: FC<IProps> = ({ setShowRegisterModal }) => {
   const [fullname, setFullname] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { postAPIData, status, error, data } = UseApiPost();
+  const { postAPIData, data } = useApiPost();
   const resetForm = (): void => {
     setFullname("");
     setUsername("");
@@ -16,16 +22,22 @@ const RegisterModalComponent: FC<IProps> = ({ setShowRegisterModal }) => {
   };
 
   const registerHandler = () => {
-    console.log(fullname, username, password);
+    // console.log(fullname, username, password);
     postAPIData("/auth/register", { username, password, fullname });
 
-    console.log(status);
-    console.log(data);
-    console.log(error);
-
-    resetForm();
-    setShowRegisterModal(false);
+    // console.log(status);
+    // console.log(data);
+    // console.log(error);
+    // setShowRegisterModal(false);
   };
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      alert("your register successfully");
+      resetForm();
+    }
+  }, [data]);
 
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto">

@@ -4,14 +4,12 @@ import axios, { AxiosError, AxiosRequestConfig } from "axios";
 
 const BackEndURL = "http://localhost:3700";
 
-export const UseApiPost = (): TPostApiResponse => {
+export const useApiPost = (): TPostApiResponse => {
   const [status, setStatus] = useState<number>(0);
   const [statusText, setStatusText] = useState<string>("");
   const [data, setData] = useState<any>();
-  const [error, setError] = useState<any>(0);
+  const [error, setError] = useState<any>();
   const [loading, setLoading] = useState<boolean>(false);
-
-  //method tha i want call it one time in useEffect
   const postAPIData = async (
     path: string,
     body: object = {},
@@ -24,18 +22,17 @@ export const UseApiPost = (): TPostApiResponse => {
         body,
         options
       );
-
-      setStatus(axiosResponse.status || data.status);
-      setStatusText(axiosResponse.statusText);
-      setData(await axiosResponse.data);
-    } catch (error: AxiosError | any) {
-      // console.log(error.response);
-      setError(error?.response?.data.status || 500);
-      setError(error?.response?.data);
+      setStatusText(axiosResponse?.statusText);
+      setData(axiosResponse?.data);
+      setStatus(axiosResponse?.status || data.status);
+    } catch (err: AxiosError | any) {
+      setStatus(err?.response?.data?.status || 500);
+      setError(err?.response?.data);
+      console.log(error);
+      return alert(status + " - " + error?.message || err?.message);
     }
     setLoading(false);
   };
-
   return {
     postAPIData,
     status,

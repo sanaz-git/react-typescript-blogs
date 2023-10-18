@@ -1,7 +1,12 @@
-import React, { Dispatch, FC, SetStateAction, useState } from "react";
-import { UseApiPost } from "../functions/FetchApi";
-import { TApiResponse } from "../types/public.types";
-import { error } from "console";
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useState,
+  useEffect,
+} from "react";
+import { useApiPost } from "../functions/FetchApi";
+
 interface IProps {
   setShowLoginModal: Dispatch<SetStateAction<boolean>>;
 }
@@ -9,7 +14,7 @@ interface IProps {
 const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { postAPIData, status, error, statusText, data } = UseApiPost();
+  const { postAPIData, data } = useApiPost();
 
   const resetForm = (): void => {
     setUsername("");
@@ -17,25 +22,19 @@ const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
   };
 
   const loginHandler = async () => {
-    console.log(username, password);
-
+    // console.log(username, password);
     postAPIData("/auth/login", { username, password });
-
-    // console.log(status);
-
-    if (status && status !== 200) {
-      // console.log(error);
-      // console.log(statusText);
-      alert(error.message);
-    } else {
-      console.log(data);
-      resetForm();
-    }
-    // alert(JSON.stringify(error, null, 4));
-    // alert(error.message);
-    setShowLoginModal(false);
   };
 
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      alert("Your LogedIn successfully");
+      resetForm();
+    }
+  }, [data]);
+
+  // setShowLoginModal(false);
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto">
       <div
