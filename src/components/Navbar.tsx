@@ -1,10 +1,15 @@
 import { useState } from "react";
 import LoginModalComponent from "./LoginModal";
 import RegisterModalComponent from "./RegisterModal";
+import { useCookies } from "react-cookie";
+import { COOKIE_NAMES } from "../enums/public.enums";
+
 export default function Navbar() {
   const [navbar, setNavbar] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [cookies] = useCookies([COOKIE_NAMES.ACCESS_TOKEN, COOKIE_NAMES.USER]);
+
   const NAV: JSX.Element = (
     <nav className="w-full bg-purple-500 shadow">
       <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
@@ -80,23 +85,24 @@ export default function Navbar() {
                 Logout
               </a>
             </div> */}
-
-            <div className="mt-3 space-y-2 lg:hidden md:inline-block">
-              <a
-                href="javascript:void(0)"
-                onClick={() => setShowLoginModal(true)}
-                className="inline-block w-full px-4 py-2 text-center text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
-              >
-                Sign in
-              </a>
-              <a
-                href="javascript:void(0)"
-                onClick={() => setShowRegisterModal(true)}
-                className="inline-block w-full px-4 py-2 text-center text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
-              >
-                Sign up
-              </a>
-            </div>
+            {cookies.accessToken && cookies.user ? null : (
+              <div className="mt-3 space-y-2 lg:hidden md:hidden md:inline-block">
+                <a
+                  href="javascript:void(0)"
+                  onClick={() => setShowLoginModal(true)}
+                  className="inline-block w-full px-4 py-2 text-center text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
+                >
+                  Sign in
+                </a>
+                <a
+                  href="javascript:void(0)"
+                  onClick={() => setShowRegisterModal(true)}
+                  className="inline-block w-full px-4 py-2 text-center text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
+                >
+                  Sign up
+                </a>
+              </div>
+            )}
           </div>
         </div>
 
@@ -108,23 +114,24 @@ export default function Navbar() {
             Logout
           </a>
         </div> */}
-
-        <div className="hidden space-x-2 md:inline-block">
-          <a
-            href="javascript:void(0)"
-            onClick={() => setShowLoginModal(true)}
-            className="px-4 py-2 text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
-          >
-            Sign in
-          </a>
-          <a
-            href="javascript:void(0)"
-            onClick={() => setShowRegisterModal(true)}
-            className="px-4 py-2 text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
-          >
-            Sign up
-          </a>
-        </div>
+        {cookies.accessToken && cookies.user ? null : (
+          <div className="hidden space-x-2 md:inline-block">
+            <a
+              href="javascript:void(0)"
+              onClick={() => setShowLoginModal(true)}
+              className="px-4 py-2 text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
+            >
+              Sign in
+            </a>
+            <a
+              href="javascript:void(0)"
+              onClick={() => setShowRegisterModal(true)}
+              className="px-4 py-2 text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
+            >
+              Sign up
+            </a>
+          </div>
+        )}
       </div>
     </nav>
   );

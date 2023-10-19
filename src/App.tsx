@@ -3,6 +3,7 @@ import BlogTableComponents from "./components/BlogTables";
 import Navbar from "./components/Navbar";
 import { IBlog } from "./types/blog.types";
 import BlogsList from "./components/BlogsList";
+import { useCookies } from "react-cookie";
 
 function App() {
   const blogsData: IBlog[] = [
@@ -32,6 +33,9 @@ function App() {
     },
   ];
   const [blogs, setBlogs] = useState<IBlog[]>(blogsData);
+  const [cookies] = useCookies(["accessToken", "user"]);
+  console.log(cookies.accessToken);
+  console.log(cookies.user);
   return (
     <div className="App">
       <Navbar />

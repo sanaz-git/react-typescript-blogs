@@ -6,6 +6,8 @@ import React, {
   useEffect,
 } from "react";
 import { useApiPost } from "../functions/FetchApi";
+import { useCookies } from "react-cookie";
+import { COOKIE_NAMES } from "../enums/public.enums";
 
 interface IProps {
   setShowLoginModal: Dispatch<SetStateAction<boolean>>;
@@ -15,6 +17,10 @@ const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { postAPIData, data } = useApiPost();
+  const [cookies, setCookie, removeCookie] = useCookies([
+    COOKIE_NAMES.ACCESS_TOKEN,
+    COOKIE_NAMES.USER,
+  ]);
 
   const resetForm = (): void => {
     setUsername("");
@@ -28,18 +34,24 @@ const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
 
   useEffect(() => {
     if (data) {
+      setShowLoginModal(false);
       console.log(data);
+      const {
+        data: { user },
+      } = data;
+      console.log(user);
+      setCookie(COOKIE_NAMES.USER, user);
+      setCookie(COOKIE_NAMES.ACCESS_TOKEN, user?.accessToken);
       alert("Your LogedIn successfully");
       resetForm();
     }
   }, [data]);
 
-  // setShowLoginModal(false);
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto">
       <div
         className="fixed inset-0 w-full h-full bg-black opacity-40"
-        onClick={() => setShowLoginModal}
+        onClick={() => setShowLoginModal(false)}
       ></div>
       <div className="flex items-center min-h-screen px-4 py-8">
         <div className="relative max-w-lg p-4 mx-auto bg-white rounded-md shadow-lg">
