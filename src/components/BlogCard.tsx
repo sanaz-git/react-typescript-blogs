@@ -7,7 +7,7 @@ const BlogCardComponent: FC<IPropsBlog> = ({ blog, key }) => {
   return (
     <>
       <div className="w-full shadow-md lg:max-w-sm p-2" key={key}>
-        <img className="object-cover w-full h-48" src={blog.image} alt="" />
+        {/* <img className="object-cover w-full h-48" src={blog.image} alt="" /> */}
         <div className="p-4">
           <h4 className="text-xl font-semibold text-blue-600">{blog.title}</h4>
           <p className="mb-2 leading-normal">{blog.text}</p>

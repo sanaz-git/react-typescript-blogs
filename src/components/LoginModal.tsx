@@ -1,10 +1,7 @@
-import React, {
-  Dispatch,
-  FC,
-  SetStateAction,
-  useState,
-  useEffect,
-} from "react";
+/* eslint-disable no-script-url */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { useApiPost } from "../functions/FetchApi";
 import { useCookies } from "react-cookie";
 import { COOKIE_NAMES } from "../enums/public.enums";
@@ -12,7 +9,6 @@ import { COOKIE_NAMES } from "../enums/public.enums";
 interface IProps {
   setShowLoginModal: Dispatch<SetStateAction<boolean>>;
 }
-
 const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -21,32 +17,25 @@ const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
     COOKIE_NAMES.ACCESS_TOKEN,
     COOKIE_NAMES.USER,
   ]);
-
   const resetForm = (): void => {
-    setUsername("");
     setPassword("");
+    setUsername("");
   };
-
-  const loginHandler = async () => {
-    // console.log(username, password);
+  const LoginHandler = () => {
     postAPIData("/auth/login", { username, password });
   };
-
   useEffect(() => {
     if (data) {
       setShowLoginModal(false);
-      console.log(data);
       const {
         data: { user },
       } = data;
-      console.log(user);
       setCookie(COOKIE_NAMES.USER, user);
       setCookie(COOKIE_NAMES.ACCESS_TOKEN, user?.accessToken);
-      alert("Your LogedIn successfully");
+      alert("Your LogedIn Successfuly!");
       resetForm();
     }
   }, [data]);
-
   return (
     <div className="fixed inset-0 z-10 overflow-y-auto">
       <div
@@ -92,7 +81,7 @@ const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
                     <div className="items-center gap-2 mt-3 sm:flex">
                       <button
                         className="w-full mt-2 p-2.5 flex-1 text-white bg-green-600 rounded-md outline-none ring-offset-2 ring-red-600 focus:ring-2"
-                        onClick={loginHandler}
+                        onClick={LoginHandler}
                       >
                         Login
                       </button>
@@ -113,5 +102,4 @@ const LoginModalComponent: FC<IProps> = ({ setShowLoginModal }) => {
     </div>
   );
 };
-
 export default LoginModalComponent;
