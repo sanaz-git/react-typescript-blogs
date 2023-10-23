@@ -34,7 +34,7 @@ const BlogTableComponents: FC<PropsBlogs> = ({ blogs }) => {
                     scope="col"
                     className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
                   >
-                    Edit
+                    Text
                   </th>
                   <th
                     scope="col"
@@ -57,15 +57,7 @@ const BlogTableComponents: FC<PropsBlogs> = ({ blogs }) => {
                       {blog.author}
                     </td>
                     <td className="px-6 py-4 text-sm font-medium text-right  whitespace-nowrap">
-                      <a
-                        className="text-green-500 hover:text-green-700"
-                        href="#"
-                        // onClick={() => {
-                        //   deleteHandler(blog._id);
-                        // }}
-                      >
-                        Edit
-                      </a>
+                      {blog.text}
                     </td>
                     <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                       <a
