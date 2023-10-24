@@ -25,7 +25,7 @@ export default function BlogPage() {
   return (
     <>
       {token ? (
-        <BlogsList blogs={data.data.blogs} />
+        <BlogsList blogs={blogs} />
       ) : (
         <h1 className="text-center p-3">unAuthorization</h1>
       )}

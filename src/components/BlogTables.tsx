@@ -2,8 +2,24 @@
 
 import { FC } from "react";
 import { PropsBlogs } from "../types/blog.types";
+import { useApiDelete } from "../functions/FetchApi";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { COOKIE_NAMES } from "../enums/public.enums";
 
 const BlogTableComponents: FC<PropsBlogs> = ({ blogs }) => {
+  const [deleteAPIData] = useApiDelete();
+  const [cookies] = useCookies([COOKIE_NAMES.ACCESS_TOKEN]);
+  const token = cookies.accessToken;
+  const history = useNavigate();
+  function deleteHandler(id: string) {
+    deleteAPIData(`/blog/delete/${id}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    history("/blogs");
+  }
   return (
     <div className="flex flex-col mt-5 p-5">
       <div className="overflow-x-auto">
@@ -48,7 +64,7 @@ const BlogTableComponents: FC<PropsBlogs> = ({ blogs }) => {
                 {blogs.map((blog, key) => (
                   <tr key={key}>
                     <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
-                      {key + 1}
+                      {blog._id}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
                       {blog.title}
@@ -63,9 +79,9 @@ const BlogTableComponents: FC<PropsBlogs> = ({ blogs }) => {
                       <a
                         className="text-red-500 hover:text-red-700"
                         href="#"
-                        // onClick={() => {
-                        //   deleteHandler(blog._id);
-                        // }}
+                        onClick={() => {
+                          deleteHandler(blog._id);
+                        }}
                       >
                         Delete
                       </a>
@@ -82,3 +98,9 @@ const BlogTableComponents: FC<PropsBlogs> = ({ blogs }) => {
 };
 
 export default BlogTableComponents;
+function deleteAPIData(
+  arg0: string,
+  arg1: { headers: { authorization: string } }
+) {
+  throw new Error("Function not implemented.");
+}
