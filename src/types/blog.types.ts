@@ -13,3 +13,4 @@ export interface IPropsBlogs {
 
 export type IPropsBlog = Omit<IPropsBlogs, "blogs">;
 export type PropsBlogs = Omit<IPropsBlogs, "blog" | "key">;
+export type TAddBlog = Omit<IBlog, "_id">;

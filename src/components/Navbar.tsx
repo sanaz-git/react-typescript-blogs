@@ -1,3 +1,5 @@
+/* eslint-disable no-script-url */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from "react";
 import LoginModalComponent from "./LoginModal";
 import RegisterModalComponent from "./RegisterModal";
@@ -17,7 +19,6 @@ export default function NavBar() {
     removeCookie(COOKIE_NAMES.ACCESS_TOKEN);
     removeCookie(COOKIE_NAMES.USER);
   }
-
   const NAV: JSX.Element = (
     <nav className="w-full bg-purple-500 shadow">
       <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
@@ -84,9 +85,8 @@ export default function NavBar() {
                 <Link to="/AboutMe">AboutMe</Link>
               </li>
             </ul>
-
             {cookies.accessToken && cookies.user ? (
-              <div className="mt-3 space-y-2 lg:hidden md:inline-block">
+              <div className="mt-3 space-y-2 lg:hidden md:hidden md:inline-block">
                 <a
                   href="javascript:void(0)"
                   onClick={() => LogoutHandler()}
@@ -115,9 +115,8 @@ export default function NavBar() {
             )}
           </div>
         </div>
-
         {cookies.accessToken && cookies.user ? (
-          <div className="mt-3 space-y-2 lg:hidden md:inline-block">
+          <div className="hidden space-x-2 md:inline-block">
             <a
               href="javascript:void(0)"
               onClick={() => LogoutHandler()}

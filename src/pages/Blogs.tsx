@@ -4,11 +4,12 @@ import { IBlog } from "../types/blog.types";
 // import { getBlogs } from "../functions/fakeData";
 import { useApiGet } from "../functions/FetchApi";
 import { Cookies, useCookies } from "react-cookie";
+import { COOKIE_NAMES } from "../enums/public.enums";
 
 export default function BlogPage() {
   const { data, getAPIData, status } = useApiGet();
 
-  const [cookies] = useCookies(["accessToken"]);
+  const [cookies] = useCookies([COOKIE_NAMES.ACCESS_TOKEN]);
   const token = cookies.accessToken;
   const [blogs, setBlogs] = useState<any>([]);
   useEffect(() => {
