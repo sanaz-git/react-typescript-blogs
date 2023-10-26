@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import BlogsList from "../components/BlogsList";
-import { IBlog } from "../types/blog.types";
+// import { IBlog } from "../types/blog.types";
 // import { getBlogs } from "../functions/fakeData";
 import { useApiGet } from "../functions/FetchApi";
-import { Cookies, useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 import { COOKIE_NAMES } from "../enums/public.enums";
 
 export default function BlogPage() {
@@ -21,7 +21,6 @@ export default function BlogPage() {
 
     setBlogs(data?.data?.blogs || []);
   }, [status]);
-  // console.log(data.data.blogs);
 
   return (
     <>

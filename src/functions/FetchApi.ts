@@ -43,7 +43,6 @@ export const useApiPost = (): TPostApiResponse => {
   };
 };
 
-// export const useApiGet = (): TGetApiResponse => {
 export const useApiGet = (): Omit<TGetApiResponse, "postAPIData"> => {
   const [status, setStatus] = useState<number>(0);
   const [statusText, setStatusText] = useState<string>("");

@@ -5,8 +5,8 @@ import { PropsBlogs } from "../types/blog.types";
 import BlogCardComponent from "./BlogCard";
 
 const BlogsList: FC<PropsBlogs> = ({ blogs }) => {
-  const Cards: JSX.Element[] = blogs.map((blog, key) => (
-    <BlogCardComponent blog={blog} key={key} />
+  const Cards: JSX.Element[] = blogs.map((blog, _id) => (
+    <BlogCardComponent blog={blog} key={_id} />
   ));
   return (
     <>

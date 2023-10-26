@@ -98,9 +98,3 @@ const BlogTableComponents: FC<PropsBlogs> = ({ blogs }) => {
 };
 
 export default BlogTableComponents;
-function deleteAPIData(
-  arg0: string,
-  arg1: { headers: { authorization: string } }
-) {
-  throw new Error("Function not implemented.");
-}

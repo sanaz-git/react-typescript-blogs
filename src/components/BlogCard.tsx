@@ -9,7 +9,7 @@ const BlogCardComponent: FC<IPropsBlog> = ({ blog, key }) => {
       <div className="w-full shadow-md lg:max-w-sm p-2" key={key}>
         <img
           className="object-cover w-full h-48"
-          src="https://picsum.photos/id/237/536/354"
+          src="https://picsum.photos/id/206/536/354"
           alt=""
         />
         <div className="p-4">
