@@ -5,7 +5,7 @@ import LoginModalComponent from "./LoginModal";
 import RegisterModalComponent from "./RegisterModal";
 import { useCookies } from "react-cookie";
 import { COOKIE_NAMES } from "../enums/public.enums";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function NavBar() {
   const [navbar, setNavbar] = useState(false);
@@ -15,9 +15,11 @@ export default function NavBar() {
     COOKIE_NAMES.ACCESS_TOKEN,
     COOKIE_NAMES.USER,
   ]);
+  const history = useNavigate();
   function LogoutHandler() {
     removeCookie(COOKIE_NAMES.ACCESS_TOKEN);
     removeCookie(COOKIE_NAMES.USER);
+    history("/");
   }
   const NAV: JSX.Element = (
     <nav className="w-full bg-purple-500 shadow">
