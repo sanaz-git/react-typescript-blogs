@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react-typescript-blogs/static/css/main.c59a6b6f.css",
+    "main.js": "/react-typescript-blogs/static/js/main.b6c98531.js",
+    "index.html": "/react-typescript-blogs/index.html",
+    "main.c59a6b6f.css.map": "/react-typescript-blogs/static/css/main.c59a6b6f.css.map",
+    "main.b6c98531.js.map": "/react-typescript-blogs/static/js/main.b6c98531.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c59a6b6f.css",
+    "static/js/main.b6c98531.js"
+  ]
+}
